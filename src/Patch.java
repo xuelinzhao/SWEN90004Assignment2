@@ -1,16 +1,24 @@
+import java.util.Random;
 
 public class Patch {
-	public int ID;
-	public int[][] location;
+	//how many grains in this patch
 	public float grains;
+	//number of grain grow
 	public float growCount;
 	
-	public void grow(int numOfGrow) {
-		
+	public Patch(float grains, float growCount) {
+		super();
+		this.grains = grains;
+		this.growCount = growCount;
+	}
+
+	public void grow() {
+		grains += growCount;
 	}
 	
 	public void harvest() {
-		
+		grains = 0;
 	}
+	
 	
 }
