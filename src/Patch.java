@@ -2,16 +2,15 @@
 public class Patch {
 	//how many grains in this patch
 	public float grains;
-	//number of grain grow
-	public float growCount;
+	public float maxGrains;
 	
-	public Patch(float grains, float growCount) {
+	public Patch(float grains, float maxGrains) {
 		super();
 		this.grains = grains;
-		this.growCount = growCount;
+		this.maxGrains = maxGrains;
 	}
 
-	public void grow() {
+	public void grow(float growCount) {
 		grains += growCount;
 	}
 	
