@@ -1,4 +1,3 @@
-import java.util.Random;
 
 public class Patch {
 	//how many grains in this patch

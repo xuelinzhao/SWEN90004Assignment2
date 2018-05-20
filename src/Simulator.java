@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 
 public class Simulator {
 	private World world;
@@ -12,8 +14,6 @@ public class Simulator {
 		
 		simulator.setup(para);
 		simulator.run();
-		
-		simulator.output.generateCSV();
 
 	}
 
@@ -31,8 +31,9 @@ public class Simulator {
 	public void run() {
 		for (int i = 1; i <= tickNum; i++) {
 			tick(i);
+			System.out.println("Tick:"+i);
 			output.printResult(world,i);
-		}
+		} 
 	}
 
 	/**
@@ -40,7 +41,6 @@ public class Simulator {
 	 */
 	public void tick(int ticknum) {
 		world.run(ticknum);
-		
 	}
 
 }

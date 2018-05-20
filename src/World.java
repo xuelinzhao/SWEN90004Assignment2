@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -9,20 +10,15 @@ public class World {
 	public Parameter parameter;
 	public Output output;
 
-	public Map<Location, ArrayList<Person>> people;
-	public Patch[][] patches;
+	public Map<Location, ArrayList<Person>> people = new HashMap<Location, ArrayList<Person>>();
+	public Patch[][] patches = new Patch[50][50];
 	
-	public int lowNum = 0;
-	public int midNum=0;
-	public int highNum=0;
-
 	public World(int width, int height, Parameter parameter) {
 		super();
 		this.width = width;
 		this.height = height;
 		this.parameter = parameter;
 		patches = new Patch[width][height];
-
 	}
 
 	public void setupWorld() {
@@ -32,22 +28,26 @@ public class World {
 	
 	public void run(int ticknum) {
 		Location location;
-		ArrayList<Person> list;
+		
 		ArrayList<Person> allPeople = new ArrayList<Person>();
 		float averageGrains = 0;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				location = new Location(i, j);
-				list = people.get(location);
+				ArrayList<Person> list = people.get(location);
+//				System.out.println(list.size());
 				if(ticknum%parameter.growInterval==0){
 					patches[i][j].grow();
 				}
+				
 				if (list.size()!=0) {
 					averageGrains = patches[i][j].grains/list.size();
+//					System.out.println(averageGrains);
 					for(Person p:list){
 						p.harvest(averageGrains);
 						patches[i][j].harvest();
 						p.moveEatAgeDie(getRichest(), getPoorest(), parameter, this);
+						//System.out.println(p.toString());
 						allPeople.add(p);
 					}
 				}	
@@ -55,24 +55,24 @@ public class World {
 			}
 		}
 		saveNewWorld(allPeople);
+		
 	}
 
 	private void setupPatch() {
 		Random random = new Random();
 		Location location;
-		ArrayList<Person> list;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
+				ArrayList<Person> list = new ArrayList<Person>();
 				location = new Location(i, j);
-				list = new ArrayList<Person>();
 				//each location has one list, at start it is empty
 				people.put(location, list);
 				if (random.nextFloat() <= parameter.percentBestLand) {
-					patches[i][j].grains=parameter.MAXGRAIN;
+					patches[i][j] = new Patch(parameter.MAXGRAIN, parameter.numOfGrow);
 				} else {
-					patches[i][j].grains = 0;
+					patches[i][j] = new Patch(0, parameter.numOfGrow);
 				}
-				patches[i][j].grains = parameter.numOfGrow;
+//				System.out.println(patches[i][j].grains);
 			}
 		}
 	}
@@ -95,54 +95,45 @@ public class World {
 			age = 0;
 			person = new Person(n, location, vision, metabolism, life, wealth, age);
 			// add person to the people list of this location
-			people.get(location).add(person);
+
+			ArrayList<Person> newlist = people.get(location);
+			newlist.add(person);
+			people.put(location, newlist);
 		}
+		
 	}
 	
 	public void saveNewWorld(ArrayList<Person> allPeople) {
 		people.clear();
 		Location location;
-		ArrayList<Person> list;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				location = new Location(i, j);
-				list = new ArrayList<Person>();
+				ArrayList<Person> list = new ArrayList<Person>();
 				//each location has one list, at start it is empty
 				people.put(location, list);
 			}
 		}
 		
-		for (Person p:allPeople) {
+		for (Person p:allPeople) { 
+//			System.out.println(p.location.toString());
 			people.get(p.location).add(p);
 		}
-	
 	}
 	
 	
-	public void countLevel(ArrayList<Person> allPeople) {
-		for(Person p:allPeople){
-			if (p.wealth <= 1 / 3 * getRichest()) {
-				lowNum++;
-			} else if ((p.wealth > 1 / 3 * getRichest()) && (p.wealth < 2 / 3 * getRichest())) {
-				midNum++;
-			} else {
-				highNum++;
-			}
-		}
-	}
 	
 	/**
 	 * get the richest person
-	 * @return
+	 * @return 
 	 */
 	public float getPoorest() {
 		Location location;
-		ArrayList<Person> list;
 		float poorest = (float) 1000000.0;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				location = new Location(i, j);
-				list = people.get(location);
+				ArrayList<Person> list = people.get(location);
 				for(Person p:list){
 					if (p.wealth<poorest) {
 						poorest = p.wealth;
@@ -159,12 +150,11 @@ public class World {
 	 */
 	public float getRichest() {
 		Location location;
-		ArrayList<Person> list;
 		float richest = (float) 0.0;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				location = new Location(i, j);
-				list = people.get(location);
+				ArrayList<Person> list = people.get(location);
 				for(Person p:list){
 					if (p.wealth>richest) {
 						richest = p.wealth;
@@ -174,10 +164,5 @@ public class World {
 		}
 		return richest;
 	}
-	
-	
-
-	
-	
 	
 }
