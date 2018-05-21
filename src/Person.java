@@ -1,10 +1,15 @@
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * The Person class, contains information of one person
+ * 
+ * @author Xuelin Zhao&Feng Zhao
+ *
+ */
 
 public class Person {
 	public int ID;
@@ -26,22 +31,29 @@ public class Person {
 		this.age = age;
 	}
 
+	/**
+	 * person harvest from the patch
+	 * @param grains
+	 */
 	public void harvest(float grains) {
 		wealth += grains;
-
 	}
 
+	/**
+	 * one person move eat age die
+	 * if the person died, create a new person at this location
+	 * @param richest
+	 * @param poorest
+	 * @param parameter
+	 * @param world
+	 */
 	public void moveEatAgeDie(float richest, float poorest, Parameter parameter, World world) {
-//		if (ID == 1) {
-//			System.out.println(this.toString());
-//		}
 		Random random = new Random();
 		wealth -= metabolism;
 		age += 1;
 		// create new person when died
 		if (age >= lifeExpectancy || wealth < 0) {
-			// this.wealth = poorest + random.nextInt((int) (richest - poorest))
-			// + random.nextFloat();
+			//inherit from father
 			// if (wealth>0) {
 			// this.wealth = wealth/3;
 			// }else{
@@ -59,6 +71,11 @@ public class Person {
 
 	}
 
+	/**
+	 * choose the next location to move according to the wealth
+	 * @param world
+	 * @return
+	 */
 	public Location chooseNextLocation(World world) {
 		Location next = location;
 		// System.out.println(this.toString());
@@ -100,10 +117,8 @@ public class Person {
 				value = "here";
 			}
 		}
-		// System.out.println(value);
-		// System.out.println();
 
-		// check the best direction
+		// set the best direction
 		switch (value) {
 		case "left":
 			next = new Location(x - 1, y);
@@ -124,20 +139,8 @@ public class Person {
 			next = location;
 			break;
 		}
-
-		// System.out.println(next.toString());
 		return next;
 	}
-
-//	public String getLevel(int richest) {
-//		if (wealth <= 1 / 3 * richest) {
-//			return "low";
-//		} else if ((wealth > richest / 3) && (wealth <= richest * 2 / 3)) {
-//			return "mid";
-//		} else {
-//			return "high";
-//		}
-//	}
 
 	public String toString() {
 		return "ID:" + ID + " Location:" + location.toString() + " Vision:" + vision + " Metabolism:" + metabolism

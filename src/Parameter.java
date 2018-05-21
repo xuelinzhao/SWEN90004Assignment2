@@ -1,4 +1,9 @@
-
+/**
+ * The Parameter class, which contains the input parameters 
+ * and constant parameters
+ * @author Xuelin Zhao&Feng Zhao
+ *
+ */
 public class Parameter {
 	public final static int WORLDWIDTH = 50;
 	public final static int WORLDHEIGHT = 50;

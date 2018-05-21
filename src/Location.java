@@ -1,4 +1,8 @@
-
+/**
+ * The Location class, which contains the coordinate
+ * @author Xuelin Zhao&Feng Zhao
+ *
+ */
 public class Location {
 	private int x;
 	private int y;
@@ -9,6 +13,9 @@ public class Location {
 		this.y = y;
 	}
 
+	/**
+	 * override the compare function of Location
+	 */
 	@Override
     public boolean equals(Object o)
     {

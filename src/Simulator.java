@@ -1,6 +1,8 @@
-import java.io.File;
-import java.io.IOException;
-
+/**
+ * The Simulator of the model, tick and run the world
+ * @author Xuelin Zhao&Feng Zhao
+ *
+ */
 public class Simulator {
 	private World world;
 	private Parameter parameter;
@@ -9,14 +11,16 @@ public class Simulator {
 
 	public static void main(String[] args) {
 		Parameter para = new Parameter(args);
-
 		Simulator simulator = new Simulator();
-		
 		simulator.setup(para);
 		simulator.run();
 
 	}
 
+	/**
+	 * set up the world
+	 * @param para
+	 */
 	public void setup(Parameter para) {
 		parameter = para;
 		tickNum = parameter.tickNum;
@@ -26,7 +30,7 @@ public class Simulator {
 	}
 
 	/**
-	 * Run the simulation
+	 * Run the simulation for tick number times
 	 */
 	public void run() {
 		for (int i = 1; i <= tickNum; i++) {

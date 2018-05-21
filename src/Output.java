@@ -4,7 +4,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ * Output the results after one tick
+ * @author Xuelin Zhao&Feng Zhao
+ *
+ */
 public class Output {
 	public World world;
 	public Parameter parameter;
@@ -37,6 +41,11 @@ public class Output {
 		}
 	}
 
+	/**
+	 * print the results and use the results to generate CSV files
+	 * @param world
+	 * @param tick
+	 */
 	public void printResult(World world, int tick) {
 		ArrayList<Person> allPeople = new ArrayList<Person>();
 		float[] lorenzPoints = new float[100];
@@ -55,6 +64,11 @@ public class Output {
 		generateCSV(lorenzData, LorenzFile);
 	}
 
+	/**
+	 * genetate CSV files
+	 * @param data
+	 * @param file
+	 */
 	public void generateCSV(String data,File file) {
 		try {
 			FileWriter fw = new FileWriter(file, true);
@@ -71,6 +85,10 @@ public class Output {
 		
 	}
 
+	/**
+	 * get all people in this world
+	 * @param allPeople
+	 */
 	public void getAllPeople(ArrayList<Person> allPeople) {
 		for (int i = 0; i < world.width; i++) {
 			for (int j = 0; j < world.height; j++) {
@@ -92,6 +110,11 @@ public class Output {
 	ArrayList<Person> middlePeople = new ArrayList<Person>();
 	ArrayList<Person> poorPeople = new ArrayList<Person>();
 
+	/**
+	 * count the level of all people
+	 * @param allPeople
+	 * @return
+	 */
 	public String countLevel(ArrayList<Person> allPeople) {
 		for (Person p : allPeople) {
 			if (p.wealth <= world.getRichest() / 3) {
@@ -132,6 +155,11 @@ public class Output {
 		return csvData;
 	}
 
+	/**
+	 * calculate the average wealth of one level
+	 * @param peopleClass
+	 * @return
+	 */
 	public float calculateAverage(ArrayList<Person> peopleClass) {
 		float total = 0;
 		for (Person p : peopleClass) {
@@ -155,6 +183,11 @@ public class Output {
 		return floatList;
 	}
 
+	/**
+	 * calculate the lorenz points
+	 * @param sortedList
+	 * @return
+	 */
 	public float[] lorenzOutput(ArrayList<Float> sortedList) {
 		float totalWealth = 0;
 		float sumWealth = 0;
@@ -170,6 +203,11 @@ public class Output {
 		return lorenzPoints;
 	}
 
+	/**
+	 * calculate the Gini index
+	 * @param sortedList
+	 * @return
+	 */
 	public double giniOutput(ArrayList<Float> sortedList) {
 		double gini = 0;
 		float totalWealth = 0;
@@ -177,17 +215,11 @@ public class Output {
 		for(Float f: sortedList){
 			totalWealth += f;
 		}
-		
 		for (int i = 0; i < parameter.numOfPeople; i++) {
 			sumWealth += sortedList.get(i);
-//			System.out.println((float)(i+1)/parameter.numOfPeople+"!!!!!");
-//			System.out.println((sumWealth/totalWealth)+"!!!!!");
-			
 			gini += ((double)(i+1)/parameter.numOfPeople)-(sumWealth/totalWealth);
 			
 		}
-//		System.out.println(gini+"!!!G");
-//		System.out.println();
 		return gini;
 	}
 

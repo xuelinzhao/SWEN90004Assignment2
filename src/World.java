@@ -3,13 +3,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * The World class, which simulate one world contains
+ * all people and patches
+ * @author Xuelin Zhao&Feng Zhao
+ *
+ */
 public class World {
 	public int width;
 	public int height;
 	public Parameter parameter;
 	public Output output;
-
+	
+	//store all people in this world
 	public Map<Location, ArrayList<Person>> people = new HashMap<Location, ArrayList<Person>>();
+	//store all patches in this world
 	public Patch[][] patches = new Patch[50][50];
 
 	public World(int width, int height, Parameter parameter) {
@@ -25,9 +33,12 @@ public class World {
 		setupPeople(parameter.numOfPeople);
 	}
 
+	/**
+	 * run this world one time
+	 * @param ticknum
+	 */
 	public void run(int ticknum) {
 		Location location;
-
 		ArrayList<Person> allPeople = new ArrayList<Person>();
 		float averageGrains = 0;
 		for (int i = 0; i < width; i++) {
@@ -61,6 +72,9 @@ public class World {
 
 	}
 
+	/**
+	 * set up all patches including diffuse the initial best land 
+	 */
 	private void setupPatch() {
 		Random random = new Random();
 		Location location;
@@ -112,6 +126,12 @@ public class World {
 
 	}
 
+	/**
+	 * diffuse the grains around
+	 * @param i
+	 * @param j
+	 * @param percent
+	 */
 	public void diffuse(int i, int j, double percent) {
 		float average = (float) (patches[i][j].grains * percent / 8);
 		patches[i][j].grains -= percent*patches[i][j].grains;
@@ -132,6 +152,10 @@ public class World {
 
 	}
 
+	/**
+	 * set up people in this world, give initial infomration
+	 * @param num
+	 */
 	private void setupPeople(int num) {
 		Random random = new Random();
 		Person person;
@@ -158,6 +182,10 @@ public class World {
 
 	}
 
+	/**
+	 * save the new world after one tick
+	 * @param allPeople
+	 */
 	public void saveNewWorld(ArrayList<Person> allPeople) {
 		people.clear();
 		Location location;
@@ -178,7 +206,6 @@ public class World {
 
 	/**
 	 * get the richest person
-	 * 
 	 * @return
 	 */
 	public float getPoorest() {
@@ -199,8 +226,7 @@ public class World {
 	}
 
 	/**
-	 * get the poorest person
-	 * 
+	 * get the poorest person 
 	 * @return
 	 */
 	public float getRichest() {
