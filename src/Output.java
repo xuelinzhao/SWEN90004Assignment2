@@ -8,22 +8,30 @@ import java.util.Collections;
 public class Output {
 	public World world;
 	public Parameter parameter;
-	private File file;
+	private File PeopleFile;
+	private File LorenzFile;
 
 	public Output(World world, Parameter parameter) {
 		super();
 		this.world = world;
 		this.parameter = parameter;
 		try {
-			file = new File("output.csv");
-			if (file.exists()) {
-				file.delete();
-				file.createNewFile();
+			PeopleFile = new File("output.csv");
+			LorenzFile = new File("lorenz.csv");
+			if (PeopleFile.exists()) {
+				PeopleFile.delete();
+				PeopleFile.createNewFile();
 			} else {
-				file.createNewFile();
+				PeopleFile.createNewFile();
 			}
-			String title = "Low,Mid,High,LowAverage,MidAverage,HighAverage,MaxWealth,MinWealth";
-			generateCSV(title);
+			if (LorenzFile.exists()) {
+				LorenzFile.delete();
+				LorenzFile.createNewFile();
+			}else{
+				LorenzFile.createNewFile();
+			}
+			String title = "Low,Mid,High,LowAverage,MidAverage,HighAverage,MaxWealth,MinWealth,Gini";
+			generateCSV(title,PeopleFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,12 +39,23 @@ public class Output {
 
 	public void printResult(World world, int tick) {
 		ArrayList<Person> allPeople = new ArrayList<Person>();
+		float[] lorenzPoints = new float[100];
+		double gini = 0;
 		getAllPeople(allPeople);
-		String data = countLevel(allPeople);
-		generateCSV(data);
+		String peopleData = countLevel(allPeople);
+		String lorenzData = "";
+		lorenzPoints = lorenzOutput(sortList(allPeople));
+		for(float f:lorenzPoints){
+			lorenzData += f+",";
+		}
+		gini = giniOutput(sortList(allPeople));
+//		System.out.println(gini+"!!!");
+		peopleData = peopleData +","+gini;
+		generateCSV(peopleData,PeopleFile);
+		generateCSV(lorenzData, LorenzFile);
 	}
 
-	public void generateCSV(String data) {
+	public void generateCSV(String data,File file) {
 		try {
 			FileWriter fw = new FileWriter(file, true);
 			// BufferedWriter writer give better performance
@@ -49,8 +68,7 @@ public class Output {
 			e.printStackTrace();
 		}
 
-		lorenzOutput();
-		giniOutput();
+		
 	}
 
 	public void getAllPeople(ArrayList<Person> allPeople) {
@@ -65,7 +83,6 @@ public class Output {
 				}
 			}
 		}
-		// System.out.println("AllPeople:"+allPeople.size());
 	}
 
 	int lowNum = 0;
@@ -123,6 +140,11 @@ public class Output {
 		return total / peopleClass.size();
 	}
 
+	/**
+	 * sort people list to wealth list ascend
+	 * @param allpeople
+	 * @return
+	 */
 	public ArrayList<Float> sortList(ArrayList<Person> allpeople) {
 		ArrayList<Float> floatList = new ArrayList<Float>();
 
@@ -133,12 +155,40 @@ public class Output {
 		return floatList;
 	}
 
-	public void lorenzOutput() {
-
+	public float[] lorenzOutput(ArrayList<Float> sortedList) {
+		float totalWealth = 0;
+		float sumWealth = 0;
+		float[] lorenzPoints = new float[100];
+		for(Float f: sortedList){
+			totalWealth+=f;
+		}
+		
+		for (int i = 0; i < parameter.numOfPeople; i++) {
+			sumWealth += sortedList.get(i);
+			lorenzPoints[i] = 100 * sumWealth / totalWealth;
+		}
+		return lorenzPoints;
 	}
 
-	public void giniOutput() {
-
+	public double giniOutput(ArrayList<Float> sortedList) {
+		double gini = 0;
+		float totalWealth = 0;
+		float sumWealth = 0;
+		for(Float f: sortedList){
+			totalWealth += f;
+		}
+		
+		for (int i = 0; i < parameter.numOfPeople; i++) {
+			sumWealth += sortedList.get(i);
+//			System.out.println((float)(i+1)/parameter.numOfPeople+"!!!!!");
+//			System.out.println((sumWealth/totalWealth)+"!!!!!");
+			
+			gini += ((double)(i+1)/parameter.numOfPeople)-(sumWealth/totalWealth);
+			
+		}
+//		System.out.println(gini+"!!!G");
+//		System.out.println();
+		return gini;
 	}
 
 }
