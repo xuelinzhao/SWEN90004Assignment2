@@ -12,8 +12,8 @@ Use command line
 - java Simulator 100 5 5 10 75 0.25 10 5 1000
 
 ##Parameters
-100			5		  5 			10			75			0.25			10			 5		   1000
-numOfPeople maxVision maxMetabolism minLifeSpan maxLifeSpan percentBestLand growInterval numOfGrow ticknum
+					   															 		   
+100[numOfPeople] 5[maxVision] 5[maxMetabolism] 10[minLifeSpan] 75[maxLifeSpan] 0.25[percentBestLand] 10[growInterval] 5[numOfGrow] 1000[ticknum]
 
 ##Output
 After running the Simulator, output.csv and lorenz.csv would be generated
