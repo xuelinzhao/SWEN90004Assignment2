@@ -114,7 +114,7 @@ public class World {
 
 	public void diffuse(int i, int j, double percent) {
 		float average = (float) (patches[i][j].grains * percent / 8);
-		patches[i][j].grains *= percent;
+		patches[i][j].grains -= percent*patches[i][j].grains;
 
 		int left = i - 1 >= 0 ? i - 1 : width - 1;
 		int right = i + 1 < width ? i + 1 : 0;
