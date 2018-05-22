@@ -36,7 +36,8 @@ public class Output {
 			} else {
 				LorenzFile.createNewFile();
 			}
-			String title = "Low,Mid,High,LowPercent,MidPercent,HighPercent,LowAverage,MidAverage,HighAverage,MaxWealth,MinWealth,Gini";
+			String title = "Low,Mid,High,LowPercent,MidPercent,HighPercent," +
+					"LowAverage,MidAverage,HighAverage,MaxWealth,MinWealth,Gini";
 			generateCSV(title, PeopleFile);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -125,7 +126,8 @@ public class Output {
 			if (p.wealth <= world.getRichest() / 3) {
 				poorPeople.add(p);
 				lowNum++;
-			} else if ((p.wealth > world.getRichest() / 3) && (p.wealth <= world.getRichest() * 2 / 3)) {
+			} else if ((p.wealth > world.getRichest() / 3) && (p.wealth <=
+					world.getRichest() * 2 / 3)) {
 				middlePeople.add(p);
 				midNum++;
 			} else {
@@ -150,9 +152,10 @@ public class Output {
 		output += " HighAverage:" + calculateAverage(richPeople);
 		output += " MaxWealth:" + maxWealth;
 		output += " MinWealth:" + minWealth;
-		String csvData = lowNum+","+midNum+","+highNum+","+lowNumber + "," + midNumber + "," + highNumber + "," + calculateAverage(poorPeople) + ","
-				+ calculateAverage(middlePeople) + "," + calculateAverage(richPeople) + "," + maxWealth + ","
-				+ minWealth;
+		String csvData = lowNum+","+midNum+","+highNum+","+lowNumber + "," +
+				midNumber + "," + highNumber + "," + calculateAverage(poorPeople) + ","
+				+ calculateAverage(middlePeople) + "," + calculateAverage(richPeople) +
+				"," + maxWealth + "," + minWealth;
 		System.out.println(output);
 		poorPeople.clear();
 		middlePeople.clear();
