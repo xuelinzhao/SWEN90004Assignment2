@@ -62,7 +62,7 @@ public class Output {
 		for (float f : lorenzPoints) {
 			lorenzData += f + ",";
 		}
-		gini = giniOutput(sortList(allPeople));
+		gini = giniOutput(lorenzPoints);
 		// System.out.println(gini+"!!!");
 		peopleData = peopleData + "," + gini;
 		generateCSV(peopleData, PeopleFile);
@@ -145,7 +145,7 @@ public class Output {
 		output += "Low:" + lowNum;
 		output += " Mid:" + midNum;
 		output += " High:" + highNum;
-		output += "LowPercent:" + (float) lowNumber * 100 + "%";
+		output += " LowPercent:" + (float) lowNumber * 100 + "%";
 		output += " MidPercent:" + (float) midNumber * 100 + "%";
 		output += " HighPercent:" + (float) highNumber * 100 + "%";
 		output += " LowAverage:" + calculateAverage(poorPeople);
@@ -218,29 +218,23 @@ public class Output {
 			lorenzPoints[l] = 100 * sumWealth / totalWealth;
 			sumWealth=0;
 		}
-		
+
 		return lorenzPoints;
 	}
 
 	/**
 	 * calculate the Gini index
 	 * 
-	 * @param sortedList
-	 * @return
+	 * @param lorenzPoints
+	 * @return gini index
 	 */
-	public double giniOutput(ArrayList<Float> sortedList) {
-		double gini = 0;
-		float totalWealth = 0;
-		float sumWealth = 0;
-		for (Float f : sortedList) {
-			totalWealth += f;
-		}
-		for (int i = 0; i < parameter.numOfPeople; i++) {
-			sumWealth += sortedList.get(i);
-			gini += ((double) (i + 1) / parameter.numOfPeople) - (sumWealth / totalWealth);
-
-		}
-		return gini;
+	public double giniOutput(float[] lorenzPoints) {
+        double preGini = 0;
+        for(float f : lorenzPoints){
+            preGini += f;
+        }
+        double gini = (5000-preGini)/5000;
+        return gini;
 	}
 
 }
