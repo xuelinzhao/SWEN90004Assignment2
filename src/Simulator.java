@@ -1,5 +1,6 @@
 /**
  * The Simulator of the model, tick and run the world
+ * 
  * @author Xuelin Zhao&Feng Zhao
  *
  */
@@ -19,6 +20,7 @@ public class Simulator {
 
 	/**
 	 * set up the world
+	 * 
 	 * @param para
 	 */
 	public void setup(Parameter para) {
@@ -35,9 +37,9 @@ public class Simulator {
 	public void run() {
 		for (int i = 1; i <= tickNum; i++) {
 			tick(i);
-			System.out.println("Tick:"+i);
-			output.printResult(world,i);
-		} 
+			System.out.println("Tick:" + i);
+			output.printResult(world, i);
+		}
 	}
 
 	/**

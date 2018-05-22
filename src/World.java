@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * The World class, which simulate one world contains
- * all people and patches
+ * The World class, which simulate one world contains all people and patches
+ * 
  * @author Xuelin Zhao&Feng Zhao
  *
  */
@@ -14,10 +14,10 @@ public class World {
 	public int height;
 	public Parameter parameter;
 	public Output output;
-	
-	//store all people in this world
+
+	// store all people in this world
 	public Map<Location, ArrayList<Person>> people = new HashMap<Location, ArrayList<Person>>();
-	//store all patches in this world
+	// store all patches in this world
 	public Patch[][] patches = new Patch[50][50];
 
 	public World(int width, int height, Parameter parameter) {
@@ -35,6 +35,7 @@ public class World {
 
 	/**
 	 * run this world one time
+	 * 
 	 * @param ticknum
 	 */
 	public void run(int ticknum) {
@@ -60,13 +61,13 @@ public class World {
 					for (Person p : list) {
 						if (parameter.TAX_ENABLE == true) {
 							if (p.wealth <= getRichest() / 3) {
-								p.harvest(averageGrains*parameter.TAX_LOW_PERCENT);
+								p.harvest(averageGrains * parameter.TAX_LOW_PERCENT);
 							} else if ((p.wealth > getRichest() / 3) && (p.wealth <= getRichest() * 2 / 3)) {
-								p.harvest(averageGrains*parameter.TAX_MID_PERCENT);
+								p.harvest(averageGrains * parameter.TAX_MID_PERCENT);
 							} else {
-								p.harvest(averageGrains*parameter.TAX_HIGH_PERCENT);
+								p.harvest(averageGrains * parameter.TAX_HIGH_PERCENT);
 							}
-						}else {
+						} else {
 							p.harvest(averageGrains);
 						}
 						patches[i][j].harvest();
@@ -83,7 +84,7 @@ public class World {
 	}
 
 	/**
-	 * set up all patches including diffuse the initial best land 
+	 * set up all patches including diffuse the initial best land
 	 */
 	private void setupPatch() {
 		Random random = new Random();
@@ -117,40 +118,41 @@ public class World {
 		for (int n = 0; n < 10; n++) {
 			for (int i = 0; i < width; i++) {
 				for (int j = 0; j < height; j++) {
-					if(patches[i][j].grains!=0){
+					if (patches[i][j].grains != 0) {
 						diffuse(i, j, 0.25);
-					}	
+					}
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-            	if ((patches[i][j].grains != 0)&&(patches[i][j].maxGrains==0)) {
+			for (int j = 0; j < height; j++) {
+				if ((patches[i][j].grains != 0) && (patches[i][j].maxGrains == 0)) {
 					patches[i][j].maxGrains = patches[i][j].grains;
 				}
-            	System.out.print(patches[i][j].maxGrains+" ");
-            }
-            System.out.println();
-        } 
+				System.out.print(patches[i][j].maxGrains + " ");
+			}
+			System.out.println();
+		}
 
 	}
 
 	/**
 	 * diffuse the grains around
+	 * 
 	 * @param i
 	 * @param j
 	 * @param percent
 	 */
 	public void diffuse(int i, int j, double percent) {
 		float average = (float) (patches[i][j].grains * percent / 8);
-		patches[i][j].grains -= percent*patches[i][j].grains;
+		patches[i][j].grains -= percent * patches[i][j].grains;
 
 		int left = i - 1 >= 0 ? i - 1 : width - 1;
 		int right = i + 1 < width ? i + 1 : 0;
 		int up = j + 1 < height ? j + 1 : 0;
 		int down = j - 1 >= 0 ? j - 1 : height - 1;
-		
+
 		patches[left][up].grains += average;
 		patches[i][up].grains += average;
 		patches[right][up].grains += average;
@@ -158,12 +160,13 @@ public class World {
 		patches[right][down].grains += average;
 		patches[i][down].grains += average;
 		patches[left][down].grains += average;
-		patches[left][j].grains += average;	
+		patches[left][j].grains += average;
 
 	}
 
 	/**
 	 * set up people in this world, give initial infomration
+	 * 
 	 * @param num
 	 */
 	private void setupPeople(int num) {
@@ -194,6 +197,7 @@ public class World {
 
 	/**
 	 * save the new world after one tick
+	 * 
 	 * @param allPeople
 	 */
 	public void saveNewWorld(ArrayList<Person> allPeople) {
@@ -216,6 +220,7 @@ public class World {
 
 	/**
 	 * get the richest person
+	 * 
 	 * @return
 	 */
 	public float getPoorest() {
@@ -236,7 +241,8 @@ public class World {
 	}
 
 	/**
-	 * get the poorest person 
+	 * get the poorest person
+	 * 
 	 * @return
 	 */
 	public float getRichest() {

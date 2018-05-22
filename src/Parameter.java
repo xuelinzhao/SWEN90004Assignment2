@@ -1,8 +1,9 @@
 import com.sun.org.glassfish.external.arc.Taxonomy;
 
 /**
- * The Parameter class, which contains the input parameters 
- * and constant parameters
+ * The Parameter class, which contains the input parameters and constant
+ * parameters
+ * 
  * @author Xuelin Zhao&Feng Zhao
  *
  */
@@ -13,10 +14,10 @@ public class Parameter {
 	public final static boolean INHERITANCE_ENABLE = false;
 	public final static float INHERITANCE_PERCENT = (float) 0.8;
 	public final static boolean TAX_ENABLE = false;
-	public final static float TAX_HIGH_PERCENT = (float)0.5;
-	public final static float TAX_MID_PERCENT = (float)0.3;
-	public final static float TAX_LOW_PERCENT = (float)0.1;
-	
+	public final static float TAX_HIGH_PERCENT = (float) 0.5;
+	public final static float TAX_MID_PERCENT = (float) 0.3;
+	public final static float TAX_LOW_PERCENT = (float) 0.1;
+
 	/*
 	 * The parameters need to input by user
 	 */
@@ -28,11 +29,11 @@ public class Parameter {
 	public float percentBestLand;
 	public int growInterval;
 	public int numOfGrow;
-	
+
 	// The max tick times
 	public int tickNum;
-	
-	public Parameter(String[] args){
+
+	public Parameter(String[] args) {
 		numOfPeople = Integer.parseInt(args[0]);
 		maxVision = Integer.parseInt(args[1]);
 		maxMetabolism = Integer.parseInt(args[2]);
@@ -43,7 +44,5 @@ public class Parameter {
 		numOfGrow = Integer.parseInt(args[7]);
 		tickNum = Integer.parseInt(args[8]);
 	}
-	
-	
-	
+
 }
