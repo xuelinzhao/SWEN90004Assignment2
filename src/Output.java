@@ -145,7 +145,7 @@ public class Output {
 		output += "Low:" + lowNum;
 		output += " Mid:" + midNum;
 		output += " High:" + highNum;
-		output += "LowPercent:" + (float) lowNumber * 100 + "%";
+		output += " LowPercent:" + (float) lowNumber * 100 + "%";
 		output += " MidPercent:" + (float) midNumber * 100 + "%";
 		output += " HighPercent:" + (float) highNumber * 100 + "%";
 		output += " LowAverage:" + calculateAverage(poorPeople);
