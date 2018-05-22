@@ -47,6 +47,7 @@ public class World {
 				location = new Location(i, j);
 				ArrayList<Person> list = people.get(location);
 				// System.out.println(list.size());
+				//grow the grain
 				if (ticknum % parameter.growInterval == 0) {
 					if (patches[i][j].grains + parameter.numOfGrow < patches[i][j].maxGrains) {
 						patches[i][j].grow(parameter.numOfGrow);
@@ -55,6 +56,7 @@ public class World {
 					}
 				}
 
+				//update the information of this location
 				if (list.size() != 0) {
 					averageGrains = patches[i][j].grains / list.size();
 					// System.out.println(averageGrains);
@@ -218,9 +220,10 @@ public class World {
 		}
 	}
 
+
 	/**
-	 * get the richest person
-	 * 
+	 * get the poorest person
+	 *
 	 * @return
 	 */
 	public float getPoorest() {
@@ -241,8 +244,8 @@ public class World {
 	}
 
 	/**
-	 * get the poorest person
-	 * 
+	 * get the richest person
+	 *
 	 * @return
 	 */
 	public float getRichest() {

@@ -51,14 +51,14 @@ public class Person {
 	 */
 	public void moveEatAgeDie(float richest, float poorest, Parameter parameter, World world) {
 		Random random = new Random();
-		wealth -= metabolism;
-		age += 1;
+		wealth -= metabolism;//eat
+		age += 1;//age
 		// create new person when died
 		if (age >= lifeExpectancy || wealth < 0) {
 			// inherit from father
 			if (wealth > 0 && parameter.INHERITANCE_ENABLE == true) {
 				this.wealth = wealth * parameter.INHERITANCE_PERCENT;
-			} else {
+			} else {//random, as a total new person
 				this.wealth = metabolism + random.nextInt(parameter.MAXGRAIN);
 			}
 			this.age = 0;
@@ -66,10 +66,10 @@ public class Person {
 			this.metabolism = 1 + random.nextInt(parameter.maxMetabolism);
 			this.lifeExpectancy = parameter.minLifeSpan
 					+ random.nextInt(1 + parameter.maxLifeSpan - parameter.minLifeSpan);
-		} else {
+		}
+		else {//move
 			this.location = chooseNextLocation(world);
 		}
-
 	}
 
 	/**
@@ -102,23 +102,24 @@ public class Person {
 			downGrains += world.patches[x][y - i].grains;
 		}
 
-		Map<Float, String> direction = new TreeMap();
+		TreeMap<Float, String> direction = new TreeMap();
 		direction.put(leftGrains, "left");
 		direction.put(rightGrains, "right");
 		direction.put(upGrains, "up");
 		direction.put(downGrains, "down");
 
 		String value = "";
-		Set<Float> keySet = direction.keySet();
-		Iterator<Float> iter = keySet.iterator();
-		while (iter.hasNext()) {
-			Float key = iter.next();
-			// System.out.println(key + ":" + direction.get(key));
-			value = direction.get(key);
-			if (key == 0.0) {
-				value = "here";
-			}
-		}
+//		Set<Float> keySet = direction.keySet();
+//		Iterator<Float> iter = keySet.iterator();
+//		while (iter.hasNext()) {
+//			Float key = iter.next();
+//			// System.out.println(key + ":" + direction.get(key));
+//			value = direction.get(key);
+//			if (key == 0.0) {
+//				value = "here";
+//			}
+//		}
+		value = direction.get(direction.lastKey());
 
 		// set the best direction
 		switch (value) {
