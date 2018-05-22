@@ -5,6 +5,7 @@ import com.sun.org.glassfish.external.arc.Taxonomy;
  * parameters
  * 
  * @author Xuelin Zhao&Feng Zhao
+ * student ID: 801736	838219
  *
  */
 public class Parameter {

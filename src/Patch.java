@@ -2,6 +2,7 @@
  * The patch class, which has grains and maxGrains
  * 
  * @author Xuelin Zhao&Feng Zhao
+ * student ID: 801736	838219
  *
  */
 public class Patch {

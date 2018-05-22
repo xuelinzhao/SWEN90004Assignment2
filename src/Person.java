@@ -6,6 +6,7 @@ import java.util.TreeMap;
  * The Person class, contains information of one person
  *
  * @author Xuelin Zhao&Feng Zhao
+ * student ID: 801736	838219
  */
 
 public class Person {

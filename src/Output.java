@@ -9,6 +9,7 @@ import java.util.Collections;
  * Output the results after one tick
  * 
  * @author Xuelin Zhao&Feng Zhao
+ * student ID: 801736	838219
  *
  */
 public class Output {

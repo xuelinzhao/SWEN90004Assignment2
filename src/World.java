@@ -7,6 +7,7 @@ import java.util.Random;
  * The World class, which simulate one world contains all people and patches
  * 
  * @author Xuelin Zhao&Feng Zhao
+ * student ID: 801736	838219
  *
  */
 public class World {

@@ -2,6 +2,7 @@
  * The Simulator of the model, tick and run the world
  * 
  * @author Xuelin Zhao&Feng Zhao
+ * student ID: 801736	838219
  *
  */
 public class Simulator {

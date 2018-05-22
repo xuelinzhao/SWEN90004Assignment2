@@ -2,6 +2,7 @@
  * The Location class, which contains the coordinate
  * 
  * @author Xuelin Zhao&Feng Zhao
+ * student ID: 801736	838219
  *
  */
 public class Location {
