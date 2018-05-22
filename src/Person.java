@@ -1,6 +1,5 @@
 
-import java.util.Random;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * The Person class, contains information of one person
@@ -102,24 +101,24 @@ public class Person {
             downGrains += world.patches[x][y - i].grains;
         }
 
-        TreeMap<Float, String> direction = new TreeMap();
+        Map<Float, String> direction = new TreeMap();
         direction.put(leftGrains, "left");
         direction.put(rightGrains, "right");
         direction.put(upGrains, "up");
         direction.put(downGrains, "down");
 
         String value = "";
-//		Set<Float> keySet = direction.keySet();
-//		Iterator<Float> iter = keySet.iterator();
-//		while (iter.hasNext()) {
-//			Float key = iter.next();
-//			// System.out.println(key + ":" + direction.get(key));
-//			value = direction.get(key);
-//			if (key == 0.0) {
-//				value = "here";
-//			}
-//		}
-        value = direction.get(direction.lastKey());
+		Set<Float> keySet = direction.keySet();
+		Iterator<Float> iter = keySet.iterator();
+		while (iter.hasNext()) {
+			Float key = iter.next();
+			// System.out.println(key + ":" + direction.get(key));
+			value = direction.get(key);
+			if (key == 0.0) {
+				value = "here";
+			}
+		}
+        //value = direction.get(direction.lastKey());
 
         // set the best direction
         switch (value) {
