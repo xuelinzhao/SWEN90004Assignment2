@@ -36,7 +36,7 @@ public class Output {
 			} else {
 				LorenzFile.createNewFile();
 			}
-			String title = "Low,Mid,High,LowAverage,MidAverage,HighAverage,MaxWealth,MinWealth,Gini";
+			String title = "Low,Mid,High,LowPercent,MidPercent,HighPercent,LowAverage,MidAverage,HighAverage,MaxWealth,MinWealth,Gini";
 			generateCSV(title, PeopleFile);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -139,15 +139,18 @@ public class Output {
 		float highNumber = (float) highNum / parameter.numOfPeople;
 		float minWealth = sortList(allPeople).get(0);
 		float maxWealth = sortList(allPeople).get(allPeople.size() - 1);
-		output += "Low:" + (float) lowNumber * 100 + "%";
-		output += " Mid:" + (float) midNumber * 100 + "%";
-		output += " High:" + (float) highNumber * 100 + "%";
+		output += "Low:" + lowNum;
+		output += " Mid:" + midNum;
+		output += " High:" + highNum;
+		output += "LowPercent:" + (float) lowNumber * 100 + "%";
+		output += " MidPercent:" + (float) midNumber * 100 + "%";
+		output += " HighPercent:" + (float) highNumber * 100 + "%";
 		output += " LowAverage:" + calculateAverage(poorPeople);
 		output += " MidAverage:" + calculateAverage(middlePeople);
 		output += " HighAverage:" + calculateAverage(richPeople);
 		output += " MaxWealth:" + maxWealth;
 		output += " MinWealth:" + minWealth;
-		String csvData = lowNumber + "," + midNumber + "," + highNumber + "," + calculateAverage(poorPeople) + ","
+		String csvData = lowNum+","+midNum+","+highNum+","+lowNumber + "," + midNumber + "," + highNumber + "," + calculateAverage(poorPeople) + ","
 				+ calculateAverage(middlePeople) + "," + calculateAverage(richPeople) + "," + maxWealth + ","
 				+ minWealth;
 		System.out.println(output);
@@ -199,12 +202,12 @@ public class Output {
 	public float[] lorenzOutput(ArrayList<Float> sortedList) {
 		float totalWealth = 0;
 		float sumWealth = 0;
-		float[] lorenzPoints = new float[100];
+		float[] lorenzPoints = new float[101];
 		for (Float f : sortedList) {
 			totalWealth += f;
 		}
 
-		for(int l = 0;l<100;l++){
+		for(int l = 0;l<=100;l++){
 			for (int i = 0; i < (int)(0.01*l*parameter.numOfPeople); i++) {
 				sumWealth += sortedList.get(i);
 			}

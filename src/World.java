@@ -61,11 +61,11 @@ public class World {
 					for (Person p : list) {
 						if (parameter.TAX_ENABLE == true) {
 							if (p.wealth <= getRichest() / 3) {
-								p.harvest(averageGrains * parameter.TAX_LOW_PERCENT);
+								p.harvest(averageGrains * (1-parameter.TAX_LOW_PERCENT));
 							} else if ((p.wealth > getRichest() / 3) && (p.wealth <= getRichest() * 2 / 3)) {
-								p.harvest(averageGrains * parameter.TAX_MID_PERCENT);
+								p.harvest(averageGrains * (1-parameter.TAX_MID_PERCENT));
 							} else {
-								p.harvest(averageGrains * parameter.TAX_HIGH_PERCENT);
+								p.harvest(averageGrains * (1-parameter.TAX_HIGH_PERCENT));
 							}
 						} else {
 							p.harvest(averageGrains);
