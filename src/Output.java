@@ -191,7 +191,7 @@ public class Output {
 	public float[] lorenzOutput(ArrayList<Float> sortedList) {
 		float totalWealth = 0;
 		float sumWealth = 0;
-		float[] lorenzPoints = new float[100];
+		float[] lorenzPoints = new float[10000];
 		for(Float f: sortedList){
 			totalWealth+=f;
 		}

@@ -1,3 +1,5 @@
+import com.sun.org.glassfish.external.arc.Taxonomy;
+
 /**
  * The Parameter class, which contains the input parameters 
  * and constant parameters
@@ -8,6 +10,12 @@ public class Parameter {
 	public final static int WORLDWIDTH = 50;
 	public final static int WORLDHEIGHT = 50;
 	public final static int MAXGRAIN = 50;
+	public final static boolean INHERITANCE_ENABLE = false;
+	public final static float INHERITANCE_PERCENT = (float) 0.8;
+	public final static boolean TAX_ENABLE = false;
+	public final static float TAX_HIGH_PERCENT = (float)0.5;
+	public final static float TAX_MID_PERCENT = (float)0.3;
+	public final static float TAX_LOW_PERCENT = (float)0.1;
 	
 	/*
 	 * The parameters need to input by user

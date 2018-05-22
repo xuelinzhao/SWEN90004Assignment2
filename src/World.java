@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * The World class, which simulate one world contains
  * all people and patches
- * @author Xuelin Zhao & Feng Zhao
+ * @author Xuelin Zhao&Feng Zhao
  *
  */
 public class World {
@@ -58,7 +58,17 @@ public class World {
 					averageGrains = patches[i][j].grains / list.size();
 					// System.out.println(averageGrains);
 					for (Person p : list) {
-						p.harvest(averageGrains);
+						if (parameter.TAX_ENABLE == true) {
+							if (p.wealth <= getRichest() / 3) {
+								p.harvest(averageGrains*parameter.TAX_LOW_PERCENT);
+							} else if ((p.wealth > getRichest() / 3) && (p.wealth <= getRichest() * 2 / 3)) {
+								p.harvest(averageGrains*parameter.TAX_MID_PERCENT);
+							} else {
+								p.harvest(averageGrains*parameter.TAX_HIGH_PERCENT);
+							}
+						}else {
+							p.harvest(averageGrains);
+						}
 						patches[i][j].harvest();
 						p.moveEatAgeDie(getRichest(), getPoorest(), parameter, this);
 						// System.out.println(p.toString());

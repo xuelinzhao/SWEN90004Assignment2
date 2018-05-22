@@ -33,6 +33,7 @@ public class Person {
 
 	/**
 	 * person harvest from the patch
+	 * 
 	 * @param grains
 	 */
 	public void harvest(float grains) {
@@ -40,8 +41,9 @@ public class Person {
 	}
 
 	/**
-	 * one person move eat age die
-	 * if the person died, create a new person at this location
+	 * one person move eat age die if the person died, create a new person at
+	 * this location
+	 * 
 	 * @param richest
 	 * @param poorest
 	 * @param parameter
@@ -53,16 +55,15 @@ public class Person {
 		age += 1;
 		// create new person when died
 		if (age >= lifeExpectancy || wealth < 0) {
-			//inherit from father
-			// if (wealth>0) {
-			// this.wealth = wealth/3;
-			// }else{
-			// this.wealth = 1 + random.nextInt(parameter.MAXGRAIN);
-			// }
+			// inherit from father
+			if (wealth > 0 && parameter.INHERITANCE_ENABLE == true) {
+				this.wealth = wealth * parameter.INHERITANCE_PERCENT;
+			} else {
+				this.wealth = metabolism + random.nextInt(parameter.MAXGRAIN);
+			}
 			this.age = 0;
 			this.vision = 1 + random.nextInt(parameter.maxVision);
 			this.metabolism = 1 + random.nextInt(parameter.maxMetabolism);
-			this.wealth = metabolism + random.nextInt(parameter.MAXGRAIN);
 			this.lifeExpectancy = parameter.minLifeSpan
 					+ random.nextInt(1 + parameter.maxLifeSpan - parameter.minLifeSpan);
 		} else {
@@ -73,6 +74,7 @@ public class Person {
 
 	/**
 	 * choose the next location to move according to the wealth
+	 * 
 	 * @param world
 	 * @return
 	 */
