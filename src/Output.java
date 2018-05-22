@@ -204,10 +204,14 @@ public class Output {
 			totalWealth += f;
 		}
 
-		for (int i = 0; i < lorenzPoints.length; i++) {
-			sumWealth += sortedList.get(i);
-			lorenzPoints[i] = 100 * sumWealth / totalWealth;
+		for(int l = 0;l<100;l++){
+			for (int i = 0; i < (int)(0.01*l*parameter.numOfPeople); i++) {
+				sumWealth += sortedList.get(i);
+			}
+			lorenzPoints[l] = 100 * sumWealth / totalWealth;
+			sumWealth=0;
 		}
+		
 		return lorenzPoints;
 	}
 
