@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * The World class, which simulate one world contains
  * all people and patches
- * @author Xuelin Zhao&Feng Zhao
+ * @author Xuelin Zhao & Feng Zhao
  *
  */
 public class World {
@@ -116,10 +116,10 @@ public class World {
 		
 		for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-            	if (patches[i][j].grains != 0) {
+            	if ((patches[i][j].grains != 0)&&(patches[i][j].maxGrains==0)) {
 					patches[i][j].maxGrains = patches[i][j].grains;
 				}
-            	System.out.print(patches[i][j].grains+" ");
+            	System.out.print(patches[i][j].maxGrains+" ");
             }
             System.out.println();
         } 
