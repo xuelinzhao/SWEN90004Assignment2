@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * The World class, which simulate one world contains all people and patches
@@ -35,13 +32,14 @@ public class World {
 	}
 
 	/**
-	 * run this world one time
+	 * run one tick
 	 * 
 	 * @param ticknum
 	 */
 	public void run(int ticknum) {
 		Location location;
 		ArrayList<Person> allPeople = new ArrayList<Person>();
+
 		float averageGrains = 0;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {

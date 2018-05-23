@@ -12,6 +12,14 @@ public class Simulator {
 	private int tickNum;
 
 	public static void main(String[] args) {
+		if(args.length != 9){
+			System.out.println("Usage: java Simulator (numOfPeople) (maxVision)" +
+					" (maxMetabolism) (minLifeSpan) (maxLifeSpan) " +
+					"(percentBestLand) (growInterval) (numOfGrow)" +
+					" (ticknum)");
+			System.out.println("e.g.: java Simulator 100 5 5 10 75 0.25 10 5 1000");
+			System.exit(0);
+		}
 		Parameter para = new Parameter(args);
 		Simulator simulator = new Simulator();
 		simulator.setup(para);
